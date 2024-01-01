@@ -17,7 +17,7 @@
             <ColumnDefinition Width="1.5*" />
         </Grid.ColumnDefinitions>
 
-        <Image Source="/Images/close.png" Grid.Column="1" Panel.ZIndex="1" MouseUp="Image_MouseUp" Style="{StaticResource imgClose}"/>
+        <Image Source="/Images/close.png" Grid.Column="1" MouseDown="Image_MouseDown" Panel.ZIndex="1" Style="{StaticResource imgClose}"/>
 
         <Border CornerRadius="10 0 0 10">
             <Border.Background>
@@ -51,7 +51,7 @@
                         <Image Source="/Images/google.png" Width="20" Height="20" />
                     </Button>
                     <Button Style="{StaticResource buttonCircle}">
-                        <Image Source="/Images/facebook.png" Width="20" Height="20" />
+                        <Image Source="pack://application:,,,/Images/facebook.png" Width="20" Height="20" />
                     </Button>
                     <Button Style="{StaticResource buttonCircle}">
                         <Image Source="/Images/linkedin.png" Width="20" Height="20" />
