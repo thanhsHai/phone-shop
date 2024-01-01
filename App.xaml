@@ -536,6 +536,7 @@
             <Setter Property="Foreground" Value="#FFFFFF" />
         </Style>
 
+
         <Style x:Key="NormalText" TargetType="TextBlock">
             <Setter Property="FontSize" Value="16" />
             <Setter Property="LineHeight" Value="28" />
@@ -613,6 +614,7 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+
 
         <Style x:Key="textHint" TargetType="TextBlock">
             <Setter Property="FontSize" Value="14" />
