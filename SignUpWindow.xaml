@@ -104,7 +104,7 @@
 
                     <StackPanel Orientation="Horizontal">
                         <Button Content="Sign up" Background="#05B790" Foreground="#ffffff" FontSize="18" materialDesign:ButtonAssist.CornerRadius="22" Height="45" Width="120"/>
-                        <Button Content="or Login" materialDesign:ButtonAssist.CornerRadius="22" FontSize="16" Height="45" Width="120" Margin="5 0 0 0" Style="{StaticResource MaterialDesignFlatButton}"/>
+                        <Button Content="or Login" materialDesign:ButtonAssist.CornerRadius="22" FontSize="16" Height="45" Width="120" Margin="5 0 0 0" Style="{StaticResource MaterialDesignFlatButton}" Click="orLoginButton_Click"/>
                     </StackPanel>
                 </StackPanel>
             </Grid>

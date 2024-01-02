@@ -2,7 +2,7 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
-             StartupUri="SignUpWindow.xaml"
+             StartupUri="LoginWindow.xaml"
              xmlns:materialDesgin="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2"
              xmlns:local="clr-namespace:DataGrid;assembly=DataGrid">

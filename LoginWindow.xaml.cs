@@ -49,7 +49,10 @@ namespace DataGrid
         {
             if (!string.IsNullOrEmpty(txtEmail.Text) && !string.IsNullOrEmpty(passwordBox.Password))
             {
-                MessageBox.Show("Successfully Signed In");
+                MessageBox.Show("Welcome back", "Login Success");
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.Show();
+                this.Close();
             }
         }
 
@@ -64,6 +67,13 @@ namespace DataGrid
         private void textEmail_MouseDown(object sender, MouseButtonEventArgs e)
         {
             txtEmail.Focus();
+        }
+
+        private void signUpButton_Click(object sender, RoutedEventArgs e)
+        {
+            SignUpWindow signUpWindow = new SignUpWindow();
+            signUpWindow.Show();
+            this.Close(); 
         }
     }
 }

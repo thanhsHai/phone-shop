@@ -45,5 +45,11 @@ namespace DataGrid
             Application.Current.Shutdown();
         }
 
+        private void orLoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            LoginWindow loginWindow = new LoginWindow();
+            loginWindow.Show();
+            this.Close();
+        }
     }
 }

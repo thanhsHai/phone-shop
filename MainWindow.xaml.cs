@@ -79,6 +79,13 @@ namespace DataGrid
                 this.DragMove();
             }
         }
+
+        private void Logout_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+           LoginWindow loginWindow = new LoginWindow();
+           loginWindow.Show();
+           this.Close();
+        }
     }
 
     public class Member
