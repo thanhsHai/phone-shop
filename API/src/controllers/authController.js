@@ -1,0 +1,103 @@
+const User = require("../models/User");
+const bcrypt = require("bcrypt");
+
+const authController = {
+    //REGISTER
+    registerUser: async (req, res) => {
+        try {
+            const existingUser = await User.findOne({
+                $or: [{ username: req.body.username }, { email: req.body.email }],
+            });
+
+            if (existingUser) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'Username or email already exists',
+                    data: {},
+                });
+            }
+
+            const salt = await bcrypt.genSalt(10);
+            const hashed = await bcrypt.hash(req.body.password, salt);
+
+            //Create new user
+            const newUser = await new User({
+                name: req.body.name,
+                username: req.body.username,
+                email: req.body.email,
+                password: hashed,
+            });
+
+            //Save user to DB
+            const user = await newUser.save();
+
+            const { password, ...others } = user._doc;
+
+            res.status(200).json({
+                success: true,
+                message: 'Register successfully !',
+                data: others
+            });
+        } catch (err) {
+            res.status(500).json({
+                success: false,
+                message: err,
+                data: {}
+            });
+        }
+    },
+
+    //LOGIN
+    loginUser: async (req, res) => {
+        try {
+            const user = await User.findOne({ username: req.body.username });
+
+            if (!user) {
+                return res.status(404).json({
+                    success: false,
+                    message: "Incorrect username",
+                    data: {}
+                });
+            }
+
+            const validPassword = await bcrypt.compare(
+                req.body.password,
+                user.password
+            );
+
+            if (!validPassword) {
+                return res.status(404).json({
+                    success: false,
+                    message: "Incorrect password",
+                    data: {}
+                });
+            }
+
+            if (user && validPassword) {
+                const { password, ...others } = user._doc;
+
+                return res.status(200).json({
+                    success: true,
+                    message: "Log in successfully !",
+                    data: others
+                });
+            }
+        } catch (err) {
+            return res.status(500).json({
+                success: false,
+                message: "Internal Server Error",
+                data: {}
+            });
+        }
+    },
+
+    //LOG OUT
+    // logOut: async (req, res) => {
+    //     //Clear cookies when user logs out
+    //     refreshTokens = refreshTokens.filter((token) => token !== req.body.token);
+    //     res.clearCookie("refreshToken");
+    //     res.status(200).json("Logged out successfully!");
+    // }
+};
+
+module.exports = authController;
