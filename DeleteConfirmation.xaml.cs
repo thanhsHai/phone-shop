@@ -48,7 +48,7 @@ namespace DataGrid
 
         // Button logic
 
-        private void yesButton_Click(object sender, RoutedEventArgs e)
+        private async void yesButton_Click(object sender, RoutedEventArgs e)
         {
             DeleteDataAsync(products[Index]);
             this.Close();

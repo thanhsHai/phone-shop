@@ -1,6 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -45,14 +49,72 @@ namespace DataGrid
             passwordBox.Focus();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
+            // Check if the email field is empty
+            if (string.IsNullOrWhiteSpace(txtEmail.Text))
+            {
+                MessageBox.Show("Please enter your email (or username).", "Input Required", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Check if the password field is empty
+            if (string.IsNullOrWhiteSpace(passwordBox.Password))
+            {
+                MessageBox.Show("Please enter your password.", "Input Required", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             if (!string.IsNullOrEmpty(txtEmail.Text) && !string.IsNullOrEmpty(passwordBox.Password))
             {
-                MessageBox.Show("Welcome back", "Login Success");
-                MainWindow mainWindow = new MainWindow();
-                mainWindow.Show();
-                this.Close();
+                if (!string.IsNullOrEmpty(txtEmail.Text) && !string.IsNullOrEmpty(passwordBox.Password))
+                {
+                    bool loginSuccess = await AttemptLogin(txtEmail.Text, passwordBox.Password);
+                    if (loginSuccess)
+                    {
+                        MessageBox.Show("Login successful.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MainWindow mainWindow = new MainWindow();
+                        mainWindow.Show();
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Login failed. Please check your credentials.", "Login Failed", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Please enter both email and password.", "Missing Information", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
+        }
+
+        private async Task<bool> AttemptLogin(string credential, string password)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+                var loginInfo = new { credential, userPassword = password };
+                StringContent content = new StringContent(JsonConvert.SerializeObject(loginInfo), System.Text.Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync("http://localhost:8000/api/auth/login", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    // Handle the response here. Extract the token if your API provides one and store it for future requests.
+                    return true;
+                }
+                else
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    var errorResponse = JsonConvert.DeserializeObject<Dictionary<string, string>>(responseContent);
+                    MessageBox.Show("Login failed. Please check your credentials.", "Login Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                return false;
             }
         }
 

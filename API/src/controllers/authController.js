@@ -71,19 +71,21 @@ const authController = {
     //LOGIN
     loginUser: async (req, res) => {
         try {
-            const user = await User.findOne({ username: req.body.username });
+            const user = await User.findOne({
+                $or: [{ email: req.body.emailOrUsername }, { username: req.body.emailOrUsername }]
+            });
 
             if (!user) {
                 return res.status(404).json({
                     success: false,
-                    message: "Incorrect username",
+                    message: "Incorrect email",
                     data: {}
                 });
             }
 
             const validPassword = await bcrypt.compare(
-                req.body.password,
-                user.password
+                req.body.userPassword,
+                user.userPassword
             );
 
             if (!validPassword) {
@@ -95,11 +97,11 @@ const authController = {
             }
 
             if (user && validPassword) {
-                const { password, ...others } = user._doc;
+                const { userPassword, ...others } = user._doc;
 
                 return res.status(200).json({
                     success: true,
-                    message: "Log in successfully !",
+                    message: "Login successfully !",
                     data: others
                 });
             }
@@ -112,13 +114,13 @@ const authController = {
         }
     },
 
-    //LOG OUT
-    // logOut: async (req, res) => {
-    //     //Clear cookies when user logs out
-    //     refreshTokens = refreshTokens.filter((token) => token !== req.body.token);
-    //     res.clearCookie("refreshToken");
-    //     res.status(200).json("Logged out successfully!");
-    // }
+    // LOG OUT
+     logOut: async (req, res) => {
+        //Clear cookies when user logs out
+         refreshTokens = refreshTokens.filter((token) => token !== req.body.token);
+         res.clearCookie("refreshToken");
+         res.status(200).json("Logged out successfully!");
+     }
 };
 
 module.exports = authController;

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,11 +13,11 @@ using System.Windows.Shapes;
 namespace DataGrid
 {
     /// <summary>
-    /// Interaction logic for ExitConfirmation.xaml
+    /// Interaction logic for LogoutConfirmation.xaml
     /// </summary>
-    public partial class ExitConfirmation : Window
+    public partial class LogoutConfirmation : Window
     {
-        public ExitConfirmation()
+        public LogoutConfirmation()
         {
             InitializeComponent();
         }
@@ -34,7 +33,23 @@ namespace DataGrid
         // Button logic
         private void yesButton_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown(); 
+            // Find and close the main window
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window.GetType() == typeof(MainWindow))
+                {
+                    window.Close();
+                    break;
+                }
+            }
+
+            // Open the login window
+            LoginWindow loginWindow = new LoginWindow();
+            loginWindow.Show();
+
+            // Close the current logout confirmation window
+            this.Close();
+
         }
 
         private void noButton_Click(object sender, RoutedEventArgs e)
@@ -43,3 +58,4 @@ namespace DataGrid
         }
     }
 }
+

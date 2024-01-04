@@ -120,11 +120,18 @@
                 </Grid>
 
                 <!--Top Buttons-->
-                <Button Style="{StaticResource topButton}" Margin="0 0 20 0" Background="#dcdcdc">
-                    <Icon:PackIconMaterial Kind="Lumx"/>
+                <Button Style="{StaticResource topButton}" Margin="0 0 80 0" Click="MinimizeButton_Click">
+                    <Icon:PackIconMaterial Kind="WindowMinimize" />
                 </Button>
 
-                <Button Style="{StaticResource topButton}" Margin="0 0 55 0" Click="exitButton_Click">
+                <Button Style="{StaticResource topButton}" Margin="0 0 50 0" Click="MaximizeRestoreButton_Click" x:Name="MaximizeRestoreButton">
+                    <Grid>
+                        <Icon:PackIconMaterial Kind="WindowMaximize" x:Name="MaximizeIcon" />
+                        <Icon:PackIconMaterial Kind="WindowRestore" x:Name="RestoreIcon" Visibility="Collapsed" />
+                    </Grid>
+                </Button>
+
+                <Button Style="{StaticResource topButton}" Margin="0 0 20 0" Click="exitButton_Click">
                     <Icon:PackIconMaterial Kind="ExitToApp"/>
                 </Button>
 

@@ -49,7 +49,7 @@ namespace DataGrid
             this.Close();
         }
 
-        private void saveButton_Click(object sender, RoutedEventArgs e)
+        private async void saveButton_Click(object sender, RoutedEventArgs e)
         {
             var user = new User()
             {

@@ -92,10 +92,18 @@
                 <StackPanel VerticalAlignment="Center" Margin="75 0">
                     <TextBox x:Name="UsernameTextBox" BorderThickness="0 0 0 1.5" BorderBrush="#C5C8CC" materialDesign:HintAssist.FloatingOffset="0,-20" materialDesign:HintAssist.Hint="Username" Text="myshop" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="TextBox_TextChanged" />
                     <TextBox x:Name="EmailTextBox" BorderThickness="0 0 0 1.5" BorderBrush="#C5C8CC" materialDesign:HintAssist.FloatingOffset="0,-20" materialDesign:HintAssist.Hint="Email" Text="myshop@gmail.com" Margin="0 27 0 27" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    <PasswordBox x:Name="PasswordBox" BorderThickness="0 0 0 1.5" BorderBrush="#C5C8CC" materialDesign:HintAssist.FloatingOffset="0,-18" materialDesign:HintAssist.Hint="Password" Password="1234567890" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
-                    <PasswordBox x:Name="RepeatPasswordBox" BorderThickness="0 0 0 1.5" BorderBrush="#C5C8CC" materialDesign:HintAssist.FloatingOffset="0,-18" materialDesign:HintAssist.Hint="Repeat Password" Password="1234567890" Margin="0 27 0 0" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
+                    <PasswordBox x:Name="PasswordBox" BorderThickness="0 0 0 1.5" BorderBrush="#C5C8CC" materialDesign:HintAssist.FloatingOffset="0,-18" materialDesign:HintAssist.Hint="Password" Password="myshop123" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
+                                 GotFocus="PasswordBox_GotFocus" 
+                                 LostFocus="PasswordBox_LostFocus"/>
+                    <TextBlock x:Name="PasswordHintTextBlock" 
+                                Text="Password must be:&#x0a;- At least 8 characters long.&#x0a;- Include both letters and numbers." 
+                                Foreground="Gray" 
+                                FontSize="12" 
+                                Visibility="Collapsed" 
+                                Margin="0,3,0,0" />
+                    <PasswordBox x:Name="RepeatPasswordBox" BorderThickness="0 0 0 1.5" BorderBrush="#C5C8CC" materialDesign:HintAssist.FloatingOffset="0,-18" materialDesign:HintAssist.Hint="Repeat Password" Password="myshop123" Margin="0 27 0 0" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
 
-                    <CheckBox Margin="0 40 0 20" FontSize="13">
+                    <CheckBox x:Name="TermsCheckBox" Margin="0 40 0 20" FontSize="13">
                         <TextBlock>
                         <Run Foreground="#b6b6b6">By signing up I agree with</Run>
                         <Run Foreground="#07BF96">terms and conditions</Run>

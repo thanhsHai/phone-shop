@@ -331,10 +331,29 @@ namespace DataGrid
 
             lastClickedButton = analysisBtn;
         }
+        private void MinimizeButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
 
+        private void MaximizeRestoreButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.WindowState == WindowState.Maximized)
+            {
+                this.WindowState = WindowState.Normal;
+                MaximizeIcon.Visibility = Visibility.Visible;
+                RestoreIcon.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                this.WindowState = WindowState.Maximized;
+                MaximizeIcon.Visibility = Visibility.Collapsed;
+                RestoreIcon.Visibility = Visibility.Visible;
+            }
+        }
         private void logoutButton_Click(object sender, RoutedEventArgs e)
         {
-            var screen = new ExitConfirmation();
+            var screen = new LogoutConfirmation();
             screen.Show();
         }
     }
