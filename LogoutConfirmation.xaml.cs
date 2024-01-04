@@ -33,6 +33,10 @@ namespace DataGrid
         // Button logic
         private void yesButton_Click(object sender, RoutedEventArgs e)
         {
+            // Clear the saved token
+            Properties.Settings.Default.UserToken = string.Empty;
+            Properties.Settings.Default.IsLoggedIn = false;
+            Properties.Settings.Default.Save();
             // Find and close the main window
             foreach (Window window in Application.Current.Windows)
             {

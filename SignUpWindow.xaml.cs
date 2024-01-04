@@ -177,5 +177,11 @@ namespace DataGrid
             string pattern = @"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$";
             return Regex.IsMatch(password, pattern);
         }
+
+        private void TermsHyperlink_Click(object sender, RoutedEventArgs e)
+        {
+            TermsAndConditionsDialog dialog = new TermsAndConditionsDialog();
+            dialog.ShowDialog();
+        }
     }
 }

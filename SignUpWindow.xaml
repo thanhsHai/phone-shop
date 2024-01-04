@@ -87,7 +87,7 @@
             <Grid>
                 <!--Close Icon-->
                 <Image Source="/Images/close.png" Grid.Column="1" MouseDown="Image_MouseDown" Panel.ZIndex="1" Style="{StaticResource imgClose}"/>
-
+                
                 <!--Inputs-->
                 <StackPanel VerticalAlignment="Center" Margin="75 0">
                     <TextBox x:Name="UsernameTextBox" BorderThickness="0 0 0 1.5" BorderBrush="#C5C8CC" materialDesign:HintAssist.FloatingOffset="0,-20" materialDesign:HintAssist.Hint="Username" Text="myshop" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="TextBox_TextChanged" />
@@ -106,7 +106,7 @@
                     <CheckBox x:Name="TermsCheckBox" Margin="0 40 0 20" FontSize="13">
                         <TextBlock>
                         <Run Foreground="#b6b6b6">By signing up I agree with</Run>
-                        <Run Foreground="#07BF96">terms and conditions</Run>
+                        <Hyperlink Foreground="#07BF96" Click="TermsHyperlink_Click">terms and conditions</Hyperlink>
                         </TextBlock>
                     </CheckBox>
 

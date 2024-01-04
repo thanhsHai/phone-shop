@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
+const jwt = require('jsonwebtoken');
 
 const authController = {
     //REGISTER
@@ -71,6 +72,7 @@ const authController = {
     //LOGIN
     loginUser: async (req, res) => {
         try {
+            // Find the user by either username or email
             const user = await User.findOne({
                 $or: [{ email: req.body.emailOrUsername }, { username: req.body.emailOrUsername }]
             });
@@ -78,7 +80,7 @@ const authController = {
             if (!user) {
                 return res.status(404).json({
                     success: false,
-                    message: "Incorrect email",
+                    message: "User not found",
                     data: {}
                 });
             }
@@ -97,12 +99,27 @@ const authController = {
             }
 
             if (user && validPassword) {
-                const { userPassword, ...others } = user._doc;
+                // User is authenticated, create a token
+                const token = jwt.sign(
+                    { id: user._id }, // payload could include user id
+                    process.env.JWT_SECRET, // Secret for signing the token
+                    { expiresIn: '24h' } // Set the expiration time for the token
+                );
+
+                // Exclude password and other sensitive info from the response
+                const { userPassword, ...userWithoutPassword } = user._doc;
 
                 return res.status(200).json({
                     success: true,
-                    message: "Login successfully !",
-                    data: others
+                    message: "Login successfully!",
+                    token, // Send the token to the client
+                    data: userWithoutPassword // Send user data without the password
+                });
+            } else {
+                // Handle wrong credentials
+                return res.status(400).json({
+                    success: false,
+                    message: "Incorrect username or password"
                 });
             }
         } catch (err) {
@@ -113,14 +130,6 @@ const authController = {
             });
         }
     },
-
-    // LOG OUT
-     logOut: async (req, res) => {
-        //Clear cookies when user logs out
-         refreshTokens = refreshTokens.filter((token) => token !== req.body.token);
-         res.clearCookie("refreshToken");
-         res.status(200).json("Logged out successfully!");
-     }
 };
 
 module.exports = authController;

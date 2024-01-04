@@ -101,6 +101,14 @@ namespace DataGrid
                 if (response.IsSuccessStatusCode)
                 {
                     // Handle the response here. Extract the token if your API provides one and store it for future requests.
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    var jsonResponse = JsonConvert.DeserializeObject<dynamic>(responseContent);
+                    var token = (string)jsonResponse.token; // Capture the token from the response
+
+                    // Save the token and other necessary information locally
+                    Properties.Settings.Default.UserToken = token;
+                    Properties.Settings.Default.IsLoggedIn = true;
+                    Properties.Settings.Default.Save();
                     return true;
                 }
                 else

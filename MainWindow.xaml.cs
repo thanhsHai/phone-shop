@@ -374,6 +374,9 @@ namespace DataGrid
                     // Kiểm tra xem cuộc gọi API có thành công không (mã trạng thái 200 OK)
                     if (response.IsSuccessStatusCode)
                     {
+                        // Add the authorization header with the saved token
+                        client.DefaultRequestHeaders.Authorization =
+                            new AuthenticationHeaderValue("Bearer", Properties.Settings.Default.UserToken);
                         // Đọc dữ liệu từ phản hồi
                         string responseData = await response.Content.ReadAsStringAsync();
 
