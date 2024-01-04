@@ -6,8 +6,9 @@ const authController = {
     registerUser: async (req, res) => {
         try {
             const existingUser = await User.findOne({
-                $or: [{ username: req.body.username }, { email: req.body.email }],
+                $or: [{ username: req.body.userName }, { email: req.body.email }],
             });
+            
 
             if (existingUser) {
                 return res.status(400).json({
@@ -16,22 +17,33 @@ const authController = {
                     data: {},
                 });
             }
+            console.log("Found existing user:", existingUser);
 
+            console.log(req.body); // Log the entire request body to see what data you have
+            console.log(req.body.userPassword);
+            if (!req.body.userPassword) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'Password is required',
+                    data: {},
+                });
+            }
+            console.log("Password received:", req.body.userPassword);
             const salt = await bcrypt.genSalt(10);
-            const hashed = await bcrypt.hash(req.body.password, salt);
+            const hashed = await bcrypt.hash(req.body.userPassword, salt);
 
             //Create new user
             const newUser = await new User({
                 name: req.body.name,
-                username: req.body.username,
+                userName: req.body.userName,
                 email: req.body.email,
-                password: hashed,
+                userPassword: hashed,
             });
 
             //Save user to DB
             const user = await newUser.save();
 
-            const { password, ...others } = user._doc;
+            const { userPassword, ...others } = user._doc;
 
             res.status(200).json({
                 success: true,
@@ -39,11 +51,20 @@ const authController = {
                 data: others
             });
         } catch (err) {
-            res.status(500).json({
-                success: false,
-                message: err,
-                data: {}
-            });
+            console.log(err);
+            if (err.code === 11000) {
+                res.status(400).json({
+                    success: false,
+                    message: 'A user with that username or email already exists.',
+                    data: {}
+                });
+            } else {
+                res.status(500).json({
+                    success: false,
+                    message: 'Internal Server Error',
+                    data: {}
+                });
+            }
         }
     },
 

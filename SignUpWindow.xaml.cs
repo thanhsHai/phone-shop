@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -50,6 +52,62 @@ namespace DataGrid
             LoginWindow loginWindow = new LoginWindow();
             loginWindow.Show();
             this.Close();
+        }
+
+        private async void SignUpButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var name = string.Empty;
+                var username = UsernameTextBox.Text;
+                var _email = EmailTextBox.Text;
+                var password = PasswordBox.Password;
+                var repeatPassword = RepeatPasswordBox.Password;
+
+                // Optional: Validate the inputs (e.g., check if passwords match)
+
+                if (password != repeatPassword)
+                {
+                    MessageBox.Show("Passwords do not match.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                HttpClient client = new HttpClient();
+                var model = new
+                {
+                    name = username,
+                    userName = username,
+                    email = _email,
+                    userPassword = password
+                };
+
+                StringContent content = new StringContent(JsonConvert.SerializeObject(model), System.Text.Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync("http://localhost:8000/api/auth/register", content);
+
+                
+                string result = response.Content.ReadAsStringAsync().Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    MessageBox.Show("Registration successful", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    // Optionally, navigate to login window
+                }
+                else
+                {
+                    var errorResponse = JsonConvert.DeserializeObject<Dictionary<string, object>>(result);
+                    if (errorResponse.ContainsKey("message") && errorResponse["message"].ToString().Contains("already exists"))
+                    {
+                        MessageBox.Show("Username or email already exists. Please use a different one.", "Registration Failed", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Registration failed: {result}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

@@ -90,10 +90,10 @@
 
                 <!--Inputs-->
                 <StackPanel VerticalAlignment="Center" Margin="75 0">
-                    <TextBox BorderThickness="0 0 0 1.5" BorderBrush="#C5C8CC" materialDesign:HintAssist.FloatingOffset="0,-20" materialDesign:HintAssist.Hint="Username" Text="MyShop" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="TextBox_TextChanged" />
-                    <TextBox BorderThickness="0 0 0 1.5" BorderBrush="#C5C8CC" materialDesign:HintAssist.FloatingOffset="0,-20" materialDesign:HintAssist.Hint="Email" Text="MyShop@gmail.com" Margin="0 27 0 27" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    <PasswordBox BorderThickness="0 0 0 1.5" BorderBrush="#C5C8CC" materialDesign:HintAssist.FloatingOffset="0,-18" materialDesign:HintAssist.Hint="Password" Password="1234567890" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
-                    <PasswordBox BorderThickness="0 0 0 1.5" BorderBrush="#C5C8CC" materialDesign:HintAssist.FloatingOffset="0,-18" materialDesign:HintAssist.Hint="Repeat Password" Password="1234567890" Margin="0 27 0 0" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
+                    <TextBox x:Name="UsernameTextBox" BorderThickness="0 0 0 1.5" BorderBrush="#C5C8CC" materialDesign:HintAssist.FloatingOffset="0,-20" materialDesign:HintAssist.Hint="Username" Text="myshop" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="TextBox_TextChanged" />
+                    <TextBox x:Name="EmailTextBox" BorderThickness="0 0 0 1.5" BorderBrush="#C5C8CC" materialDesign:HintAssist.FloatingOffset="0,-20" materialDesign:HintAssist.Hint="Email" Text="myshop@gmail.com" Margin="0 27 0 27" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <PasswordBox x:Name="PasswordBox" BorderThickness="0 0 0 1.5" BorderBrush="#C5C8CC" materialDesign:HintAssist.FloatingOffset="0,-18" materialDesign:HintAssist.Hint="Password" Password="1234567890" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
+                    <PasswordBox x:Name="RepeatPasswordBox" BorderThickness="0 0 0 1.5" BorderBrush="#C5C8CC" materialDesign:HintAssist.FloatingOffset="0,-18" materialDesign:HintAssist.Hint="Repeat Password" Password="1234567890" Margin="0 27 0 0" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" />
 
                     <CheckBox Margin="0 40 0 20" FontSize="13">
                         <TextBlock>
@@ -103,7 +103,7 @@
                     </CheckBox>
 
                     <StackPanel Orientation="Horizontal">
-                        <Button Content="Sign up" Background="#05B790" Foreground="#ffffff" FontSize="18" materialDesign:ButtonAssist.CornerRadius="22" Height="45" Width="120"/>
+                        <Button Content="Sign up" Click="SignUpButton_Click" Background="#05B790" Foreground="#ffffff" FontSize="18" materialDesign:ButtonAssist.CornerRadius="22" Height="45" Width="120"/>
                         <Button Content="or Login" materialDesign:ButtonAssist.CornerRadius="22" FontSize="16" Height="45" Width="120" Margin="5 0 0 0" Style="{StaticResource MaterialDesignFlatButton}" Click="orLoginButton_Click"/>
                     </StackPanel>
                 </StackPanel>
