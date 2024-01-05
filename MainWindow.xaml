@@ -3,7 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         Height="720" Width="1080" WindowStartupLocation="CenterScreen" AllowsTransparency="True"
+<<<<<<< Updated upstream
         Background="Transparent" WindowStyle="None">
+=======
+        Background="Transparent" WindowStyle="None" Loaded="Window_Loaded">
+>>>>>>> Stashed changes
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
@@ -121,8 +125,8 @@
                 </Grid>
 
                 <!--Top Buttons-->
-                <Button Style="{StaticResource topButton}" Margin="0 0 20 0" Background="#dcdcdc">
-                    <Icon:PackIconMaterial Kind="Lumx"/>
+                <Button Style="{StaticResource topButton}" Margin="0 0 20 0" Background="#dcdcdc" Click="refresh_Click" Cursor="Hand">
+                    <Icon:PackIconMaterial Kind="Refresh"/>
                 </Button>
 
                 <Button Style="{StaticResource topButton}" Margin="0 0 55 0">
@@ -235,6 +239,127 @@
 
             </Grid>
 
+<<<<<<< Updated upstream
+=======
+            <!--Dashboard-->
+            <Border Name="DashboardSection" Grid.Column="1" CornerRadius="0 10 10 0" MouseDown="Border_MouseDown" Visibility="Visible">
+
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="1,0" EndPoint="0,1">
+                        <GradientStop Color="#41518F" Offset="0" />
+                        <GradientStop Color="#2C386C" Offset="1" />
+                    </LinearGradientBrush>
+                </Border.Background>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="200"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!--Title-->
+                    <TextBlock FontSize="26" Foreground="#CCD7FF" Margin="50 35 0 20" Text="Good Afternoon, Slivers" HorizontalAlignment="Left"/>
+
+                    <!--Info Cards-->
+                    <Grid Grid.Row="1" Margin="50 20 15 40">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <uc:InfoCard Grid.Column="0" Title="Total Products" Icon="Eye" Background1="#827BFF" Background2="#D9B5FF" EllipseBackground1="#B298FD" EllipseBackground2="#E4BBFF"/>
+                        <TextBlock Grid.Column="0" x:Name="totalProducts" Margin="10,57,168,51" Text="...." VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" FontSize="25" Foreground="White"/>
+                        <uc:InfoCard Grid.Column="1" Title="Total Orders" Icon="ShoppingCart" Background1="#FD8A87" Background2="#F3AB92" EllipseBackground1="#FBD5A8" EllipseBackground2="#FDB89B"/>
+                        <TextBlock Grid.Column="1" x:Name="totalOrders" Margin="10,57,168,51" Text="...." VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" FontSize="25" Foreground="White"/>
+                        <uc:InfoCard Grid.Column="2" Title="Total Revenue" Icon="Coins" Background1="#FC84CB" Background2="#FC8FAE" EllipseBackground1="#FC8FAE" EllipseBackground2="#FFABE6"/>
+                        <TextBlock Grid.Column="2" x:Name="totalRevenue" Margin="10,57,168,51" Text="...." VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" FontSize="25" Foreground="White"/>
+                    </Grid>
+
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="300"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!--productDashboard-->
+                        <Border x:Name="productDashboard" Visibility="Visible" CornerRadius="20" Width="auto" Padding="0 25" Background="#243771" Margin="50,0,47,40" Grid.ColumnSpan="2">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <StackPanel Orientation="Horizontal" Margin="28 0 0 15">
+                                    <fa:IconImage Icon="Circle" Style="{StaticResource titleIcon}"/>
+                                    <TextBlock Text="Last Orders" Style="{StaticResource titleText}"/>
+                                </StackPanel>
+
+                                <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="DashboardDataGrid" Style="{DynamicResource DataGridStyle1}">
+
+                                    <DataGrid.Columns>
+
+                                        <DataGridTextColumn Header="#" IsReadOnly="True" CanUserResize="False" Width="auto"/>
+
+                                        <DataGridTemplateColumn Header="Date" IsReadOnly="True" Width="*">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="{Binding date}" TextAlignment="Center"/>
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+
+                                        <DataGridTextColumn x:Name="col02s" Header="User Name" Binding="{Binding userName}" IsReadOnly="True" Width="*"/>
+
+                                        <DataGridTextColumn x:Name="col03s" Header="Product Name" Binding="{Binding productName}" IsReadOnly="True" Width="*"/>
+
+                                        <DataGridTextColumn x:Name="col04s" Header="Quantity" Binding="{Binding quantity}" IsReadOnly="True" Width="*"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Grid>
+                        </Border>
+
+                        <!--analysis-->
+                        <Border Visibility="Collapsed" x:Name="chart" CornerRadius="20" Padding="35 25" Background="#243771" Margin="50 0 10 40">
+                            <Grid>
+                                <Button Style="{StaticResource menuButton}" Grid.Row="1" DockPanel.Dock="Bottom" Margin="599,121,-204,147" Height="23">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Icon:PackIconMaterial Kind="SkipNext" Style="{StaticResource menuButtonIcon}"/>
+                                    </StackPanel>
+                                </Button>
+
+                                <TextBlock
+                                    Name="Title"
+                                    Text="Đang hiển thị xem doanh thu theo năm"
+                                    Margin="-27,-52,10,0"
+                                    Foreground="White"
+                                    VerticalAlignment="Top"
+                                    FontSize="16"
+                                    FontWeight="Regular"
+                                    FontFamily="Times New Roman"/>
+
+                                <Border Background="#60ffffff" Margin="10" Grid.Row="1" CornerRadius="0" Width="Auto">
+                                    <lvc:CartesianChart Name="chartbehind" LegendLocation="Bottom" Margin="1,0,0,0" />
+                                </Border>
+
+                                <DatePicker Name="StartDate" Margin="493,146,-149,171" BorderThickness="0"/>
+
+                                <DatePicker Name="EndDate" Margin="654,147,-306,172" BorderThickness="0"/>
+
+                                <Button Style="{StaticResource menuButton}" DockPanel.Dock="Bottom" Margin="750,146,-355,171" Height="23" Click="saveDateButton_Click">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Icon:PackIconMaterial Kind="ContentSave" Style="{StaticResource menuButtonIcon}"/>
+                                    </StackPanel>
+                                </Button>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Grid>
+            </Border>
+>>>>>>> Stashed changes
         </Grid>
     </Border>
 </Window>
