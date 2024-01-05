@@ -2,10 +2,46 @@ GIỚI THIỆU VỀ PROJECT
 Đây là project xây dựng một phần mềm quản lý cho một cửa hàng smartphone. Hỗ trợ việc nhập, xuất, xóa, cập nhật dữ liệu một cách nhanh chóng và tiện lợi, hơn thế nữa, phần mềm còn có khả năng quản lý đơn hàng và quản lý nhân viên, cũng như khả năng phân tích hiệu suất và báo cáo thông kê dựa vào lượng sản phẩm tiêu thụ.
 
 Thành viên:
-21120053 - Lại Đức Dũng
-21120063 - Hà Thanh Hải
-21120064 - Lê Quốc Hân
-21120197 - Cao Nguyễn Tuấn Anh 
+- 21120053 - Lại Đức Dũng
+- 21120063 - Hà Thanh Hải
+- 21120064 - Lê Quốc Hân
+- 21120197 - Cao Nguyễn Tuấn Anh
+
+PHÂN CÔNG:
+- Tuấn Anh
+  + Sign in / Sign out (0.25)
+  + Tạo file setup (0.25)
+  + Làm rối mã nguồn, chống dịch ngược (0.25)
+  + Backup / restore database (0.5)
+  + Tự động thay đổi sắp xếp hợp lí các thành phần theo độ rộng màn hình (0.5)
+  
+- Quốc Hân
+   + Dashboard (0.25):
+   + Configuration (0.25):
+   + Báo cáo thống kê (1.0)
+
+- Đức Dũng
+  + Kết nối rest API (1.0)
+  + Thiết kế database
+  + Viết logic API: login, signup, các hàm get, post cho mỗi trường data
+- Thanh Hải.
+  + Product Management (1.5)
+  + Quản lí khách hàng (1.0)
+  + Thiết kế body cho mainWindow
+  + Order Management (1.5)
+
+CÁC CHỨC NĂNG CHƯA THỂ THỰC HIỆN:
+- Import dữ liệu gốc ban đầu (loại sản phẩm, danh sách các sản phẩm) từ tập tin Excel hoặc Access.
+- Xem các sản phẩm và số lượng bán theo ngày đến ngày, theo tuần, theo tháng, theo năm (vẽ biểu đồ).
+- Cho phép khi chạy chương trình lên thì mở lại màn hình cuối mà lần trước tắt.
+
+CHỨC NĂNG CẦN XEM XÉT CỘNG ĐIỂM:
+- Tạo báo cáo thống kê.
+  -> Chúng em gặp khó khăn trong việc xử lí dữ liệu cũng như đồng bộ dữ liệu khi gọi API, hơn thế nữa việc tạo lập biểu đồ thống kê cũng là một trở ngại rất lớn khi phải thực hiện song song với việc binding dữ liệu.
+- Đăng kí / Đăng nhập.
+  -> Chúng em dành nhiều thời gian trong việc đồng bộ dữ liệu khi phải áp dụng API để tương tác với database. 
+- Thiết kế tổng quan cho phần mềm.
+  -> Chúng em đã dành phần lớn thời gian cho việc đồng bộ về mặt thiết kế lẫn cấu hình, với mục đính mang đến trải nghiệm tốt nhất cho người dùng.
 
 MÔI TRƯỜNG THỰC THI:
 - VS Code
@@ -36,8 +72,8 @@ Sign in / Sign out (0.25): 100%
 Dashboard (0.25): 100%
 Product Management (1.5): 100%
 Order Management (1.5): 100%
-Báo cáo thống kê (1.0): 100%
-Configuration (0.25): 100%         
+Báo cáo thống kê (1.0): 50%
+Configuration (0.25): 50%         
 Tạo file setup (0.25): 100%
 
 Chức năng nâng cao:
@@ -49,5 +85,9 @@ Backup / restore database (0.5): 100%
 Tổ chức theo mô hình 3 lớp (1.0): 100%
 Kết nối rest API (1.0): 100%
 
-
+TỰ ĐÁNH GIÁ:
+- Lại Đức Dũng: 25%
+- Hà Thanh Hải : 25%
+- Lê Quốc Hân :  25%
+- Cao Nguyễn Tuấn Anh : 25%
 
